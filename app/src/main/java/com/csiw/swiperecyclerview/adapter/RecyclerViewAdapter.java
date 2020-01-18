@@ -4,8 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,10 +37,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         Task task = taskList.get(position);
         holder.tvTaskName.setText(task.getName());
         holder.tvTaskDesc.setText(task.getDesc());
-        setAnimation(holder.itemView,position);
+
+        holder.imUserImage.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_launcher_round));
+
+        /* set Image Animation */
+//        holder.imUserImage.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation));
+        /* set Animation Layouts */
+//        holder.mParentLayout.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_sacl_animation));
+
     }
 
     @Override
@@ -55,20 +64,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTaskName;
         private TextView tvTaskDesc;
+        private ImageView imUserImage;
+        private RelativeLayout mParentLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tvTaskName = itemView.findViewById(R.id.task_name);
             tvTaskDesc = itemView.findViewById(R.id.task_desc);
+            imUserImage = itemView.findViewById(R.id.user_image);
+            mParentLayout = itemView.findViewById(R.id.parent_layout);
         }
 
-    }
-    private void setAnimation(View viewToAnimate, int position) {
-        // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
     }
 }

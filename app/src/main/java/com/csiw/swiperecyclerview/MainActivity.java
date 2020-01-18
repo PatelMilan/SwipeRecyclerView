@@ -10,9 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.csiw.swiperecyclerview.adapter.RecyclerViewAdapter;
+import com.csiw.swiperecyclerview.fragment.BottomSheetFragment;
 import com.csiw.swiperecyclerview.interfaces.OnRowClickListener;
 import com.csiw.swiperecyclerview.interfaces.OnSwipeOptionsClickListener;
 import com.csiw.swiperecyclerview.model.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.MaterialShapeDrawable;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                                 recyclerviewAdapter.setTaskList(taskList);
                                 break;
                             case R.id.edit_task:
-                                Toast.makeText(getApplicationContext(), "Edit Not Available", Toast.LENGTH_SHORT).show();
+                                showBottomSheetDialog();
                                 break;
                             case R.id.copy_task:
                                 taskList.add(position, taskList.get(position));
@@ -85,5 +90,10 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         recyclerView.addOnItemTouchListener(touchListener);
+    }
+
+    private void showBottomSheetDialog(){
+        BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 }
